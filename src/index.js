@@ -1,14 +1,22 @@
-import { app, BrowserWindow, screen } from "electron";
+import { app, BrowserWindow, dialog, screen } from "electron";
 import path from 'path';
 import FolderSelectionService from "./Services/FolderSelectionService.js";
 import FrameActionService from "./Services/FrameActionService.js";
 import DefaultFileAssociationService from "./Services/DefaultFileAssociationService.js";
+import SupportedFileTypeData from "./Data/SupportedFileTypeData.js";
 
 let isNotDeeplinkOpened = true;
+let mainWindow;
 
+const getVideoFile = (argv) => {
+  const supported = SupportedFileTypeData.supportedExtension;
+  return argv.find(arg =>
+    supported.some(ext => arg.toLowerCase().endsWith(ext))
+  );
+}
 
 const createMainWindow = () => {
-  const mainWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     width: 1280,
     height: 720,
     show: false,
@@ -19,7 +27,6 @@ const createMainWindow = () => {
       nodeIntegration: false,
       devTools: false,
       preload: path.join(app.getAppPath(), 'src', 'preload.js'),
-      // webSecurity: false
     }
   });
 
@@ -27,11 +34,13 @@ const createMainWindow = () => {
   const uiPath = path.join(app.getAppPath(), 'src', 'UI', 'index.html')
   mainWindow.loadFile(uiPath);
 
-  // mainWindow.loadURL('http://192.168.1.85:5500/src/UI/index.html');
-
   mainWindow.webContents.on('did-finish-load', () => {
     mainWindow.webContents.setZoomFactor(1 / screen.getPrimaryDisplay().scaleFactor);
     mainWindow.show();
+
+    const file = getVideoFile(process.argv);
+    if (file) FolderSelectionService.openFile(file, mainWindow);
+
     if (isNotDeeplinkOpened) {
       isNotDeeplinkOpened = false;
       const url = process.argv.find(arg => arg.startsWith('noobplayer://'));
@@ -41,21 +50,18 @@ const createMainWindow = () => {
 
   mainWindow.webContents.on('before-input-event', (event, input) => {
     const isReload = (input.control || input.meta) && input.shift && input.key.toLowerCase() === 'r';
-
-    if (isReload) {
-      event.preventDefault(); // Stop the reload from happening
-    }
+    if (isReload) event.preventDefault();
   });
 
   screen.on('display-metrics-changed', (event, display, changedMetrics) => {
     mainWindow.webContents.setZoomFactor(1 / display.scaleFactor);
   });
+}
+
+app.whenReady().then(async () => {
+  createMainWindow();
 
   FolderSelectionService.init(mainWindow);
   FrameActionService.init(mainWindow);
   DefaultFileAssociationService.init();
-}
-
-app.on('ready', () => {
-  createMainWindow();
-})
+});
