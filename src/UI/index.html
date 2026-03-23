@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Vid Player</title>
+</head>
+
+<body>
+  <div class="orbs">
+    <div class="orb"></div>
+    <div class="orb"></div>
+  </div>
+  <nav class="navbar">
+    <div class="section">
+      <h2>NooB Player</h2>
+    </div>
+    <div class="section">
+      <div class="searchBar" id="searchBar">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          class="lucide lucide-search-icon lucide-search">
+          <path d="m21 21-4.34-4.34" />
+          <circle cx="11" cy="11" r="8" />
+        </svg>
+        <input type="text" name="" id="searchBarInp" placeholder="Search your video"
+          onkeyup="searchBarInpChange(this.value)" onfocus="searchFocusChange()"
+          onblur="setTimeout(searchFocusChange,100)">
+        <div class="info-list" id="infoList"></div>
+        </input>
+        <button id="searchCancelBtn" class="clearSearchbtn" onclick="doNoShowInSearchInfoList(true)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="lucide lucide-x-icon lucide-x">
+            <path d="M18 6 6 18" />
+            <path d="m6 6 12 12" />
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div class="section">
+      <button onclick="window.vidPlayer.appMinimize()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          class="lucide lucide-minus-icon lucide-minus">
+          <path d="M5 12h14" />
+        </svg>
+      </button>
+      <button onclick="window.vidPlayer.appMaximize()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          class="lucide lucide-square-icon lucide-square">
+          <rect width="18" height="18" x="3" y="3" rx="2" />
+        </svg>
+      </button>
+      <button onclick="window.vidPlayer.appClose()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          class="lucide lucide-x-icon lucide-x">
+          <path d="M18 6 6 18" />
+          <path d="m6 6 12 12" />
+        </svg>
+      </button>
+    </div>
+  </nav>
+  <div class="page folderNotSelected" id="folderNotSelected">
+    <h1>NooB Player</h1>
+    <button class="select-file-folder-btn" onclick="window.vidPlayer.openFile()">Open a file<div class="line"></div>
+    </button>
+    <button class="select-file-folder-btn" onclick="window.vidPlayer.openFolder()">Open Folder<div class="line"></div>
+    </button>
+    <div class="recents" id="recents">
+      <h3>Recents</h3>
+      <div class="folders" id="recent-folders"></div>
+    </div>
+  </div>
+  <div class="page mainPage" id="mainPage">
+    <div class="filesPanel" id="filesPanel">
+      <button class="changeFolderBtn" onclick="window.location.reload()">Go Back</button>
+    </div>
+    <div class="sperator"></div>
+    <div class="videoPlayer row">
+      <h2 class="row" id="vidtitle"></h2>
+      <div class="video row" onmouseover="mouseOverVidPlayer()" onmouseleave="mouseLeaveVidPlayer()">
+        <video id="vidplayer" class="vidplayer row" ontimeupdate="videoTimeUpdate()" onplay="onVideoPlay()"
+          onpause="onVideoPause()" autoplay onclick="playPauseVideo()" ondblclick="vidplayer.requestFullscreen()"
+          onvolumechange="vidvolume.value = this.volume*100">
+          Unsupported file type
+        </video>
+        <button id="playPauseBtn" class="playPauseBtn" onclick="playPauseVideo(this)"><svg
+            xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="lucide lucide-play-icon lucide-play">
+            <path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z" />
+          </svg></button>
+        <div class="controlls row" id="controlls">
+          <div class="seek row">
+            <span id="currVidTime"></span>
+            <input class="timeline" type="range" id="timeline" value="0" oninput="inputChange(this)">
+            <span id="totalVidTime"></span>
+          </div>
+          <div class="buttonControlls row">
+            <div class="box">
+              <input type="range" id="vidvolume" value="70" oninput="vidplayer.volume = this.value / 100">
+              <button title="5s Backward (Arrow left)"
+                onclick="vidplayer.currentTime = ((vidplayer.currentTime - 5) <= 0)? 0 : (vidplayer.currentTime - 5)">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                  id="Rewind-5-Seconds-Back--Streamline-Solar-Ar" height="24" width="24">
+                  <desc>
+                    Rewind 5 Seconds Back Streamline Icon: https://streamlinehq.com
+                  </desc>
+                  <path
+                    d="M14 4.5 12 2c5.5228 0 10 4.47715 10 10 0 5.5228 -4.4772 10 -10 10 -5.52285 0 -10 -4.4772 -10 -10 0 -4.10064 2.46819 -7.6248 6 -9.16791"
+                    stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+                  <path
+                    d="M14 8.5h-2.6396c-0.2152 0 -0.4063 0.13772 -0.4744 0.34189l-0.6666 2.00001c-0.108 0.3238 0.133 0.6581 0.4743 0.6581H12c1.1046 0 2 0.8954 2 2s-0.8954 2 -2 2h-2"
+                    stroke="#ffffff" stroke-linecap="round" stroke-width="1.5"></path>
+                </svg></button>
+              <button title="5s Forward (Arrow right)"
+                onclick="vidplayer.currentTime = ((vidplayer.currentTime + 5) >= vidplayer.duration)? vidplayer.duration : (vidplayer.currentTime + 5)">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                  id="Rewind-5-Seconds-Forward--Streamline-Solar-Ar" height="24" width="24">
+                  <desc>
+                    Rewind 5 Seconds Forward Streamline Icon: https://streamlinehq.com
+                  </desc>
+                  <path
+                    d="M10 4.5 12 2C6.47715 2 2 6.47715 2 12c0 5.5228 4.47715 10 10 10 5.5228 0 10 -4.4772 10 -10 0 -4.10064 -2.4682 -7.6248 -6 -9.16791"
+                    stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+                  <path
+                    d="M14 8.5h-2.6396c-0.2152 0 -0.4063 0.13772 -0.4744 0.34189l-0.6666 2.00001c-0.108 0.3238 0.133 0.6581 0.4743 0.6581H12c1.1046 0 2 0.8954 2 2s-0.8954 2 -2 2h-2"
+                    stroke="#ffffff" stroke-linecap="round" stroke-width="1.5"></path>
+                </svg></button>
+            </div>
+            <div class="box">
+              <button title="Rotate left (Shift + r)" onclick="videoRotate('LEFT')"><svg
+                  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                  class="lucide lucide-rotate-ccw-square-icon lucide-rotate-ccw-square">
+                  <path d="M20 9V7a2 2 0 0 0-2-2h-6" />
+                  <path d="m15 2-3 3 3 3" />
+                  <path d="M20 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h2" />
+                </svg></button>
+              <button title="Rotate right (r)" onclick="videoRotate('RIGHT')"><svg xmlns="http://www.w3.org/2000/svg"
+                  width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round"
+                  class="lucide lucide-rotate-cw-square-icon lucide-rotate-cw-square">
+                  <path d="M12 5H6a2 2 0 0 0-2 2v3" />
+                  <path d="m9 8 3-3-3-3" />
+                  <path d="M4 14v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2" />
+                </svg></button>
+              <button onclick="startPrevVid()" title="Prev video (Shift + n)"><svg xmlns="http://www.w3.org/2000/svg"
+                  width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-skip-back-icon lucide-skip-back">
+                  <path d="M17.971 4.285A2 2 0 0 1 21 6v12a2 2 0 0 1-3.029 1.715l-9.997-5.998a2 2 0 0 1-.003-3.432z" />
+                  <path d="M3 20V4" />
+                </svg></button>
+              <button onclick="startNextVid()" title="Next Video (n)"><svg xmlns="http://www.w3.org/2000/svg" width="24"
+                  height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round"
+                  class="lucide lucide-skip-forward-icon lucide-skip-forward">
+                  <path d="M21 4v16" />
+                  <path d="M6.029 4.285A2 2 0 0 0 3 6v12a2 2 0 0 0 3.029 1.715l9.997-5.998a2 2 0 0 0 .003-3.432z" />
+                </svg></button>
+              <button onclick="vidplayer.requestPictureInPicture()" title="Picture in Picture (p)"><svg
+                  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                  class="lucide lucide-picture-in-picture2-icon lucide-picture-in-picture-2">
+                  <path d="M21 9V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v10c0 1.1.9 2 2 2h4" />
+                  <rect width="10" height="7" x="12" y="13" rx="2" />
+                </svg></button>
+              <button onclick="vidplayer.requestFullscreen()" title="Full Screen (f)"><svg
+                  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                  class="lucide lucide-fullscreen-icon lucide-fullscreen">
+                  <path d="M3 7V5a2 2 0 0 1 2-2h2" />
+                  <path d="M17 3h2a2 2 0 0 1 2 2v2" />
+                  <path d="M21 17v2a2 2 0 0 1-2 2h-2" />
+                  <path d="M7 21H5a2 2 0 0 1-2-2v-2" />
+                  <rect width="10" height="8" x="7" y="8" rx="1" />
+                </svg></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+
+</html>

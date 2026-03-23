@@ -1,0 +1,61 @@
+{
+  "name": "vid-player",
+  "version": "0.9.2",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron .",
+    "build": "electron-builder"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "mime-types": "^3.0.2"
+  },
+  "devDependencies": {
+    "electron": "^41.0.3",
+    "electron-builder": "^26.8.1"
+  },
+  "build": {
+    "appId": "com.noobz.noobplayer",
+    "productName": "NooB Video Player",
+    "files": [
+      "**/*"
+    ],
+    "directories": {
+      "buildResources": "build"
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "src/Assets/favicon.png",
+      "fileAssociations": [
+        {
+          "ext": [
+            "mp4",
+            "m4v",
+            "webm",
+            "ogv",
+            "ogg",
+            "mov",
+            "qt",
+            "3gp",
+            "3g2",
+            "avi",
+            "wmv",
+            "flv",
+            "mpg",
+            "mpeg",
+            "mpe",
+            "mkv"
+          ],
+          "name": "Video File",
+          "description": "Video File",
+          "icon": "src/Assets/favicon.png"
+        }
+      ]
+    }
+  }
+}
