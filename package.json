@@ -1,12 +1,14 @@
 {
   "name": "noob-player",
   "version": "0.9.2",
-  "description": "",
+  "description": "NooB Video Player - Fast lightweight media player",
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron .",
-    "build": "electron-builder"
+    "build:win": "electron-builder --win",
+    "build:linux": "electron-builder --linux",
+    "build:mac": "electron-builder --mac"
   },
   "keywords": [],
   "author": "",
@@ -93,29 +95,72 @@
         "AppImage",
         "deb"
       ],
-      "icon": "src/Assets/",
+      "icon": "build/icons",
       "category": "AudioVideo",
       "fileAssociations": [
         {
-          "ext": [
-            "mp4",
-            "m4v",
-            "webm",
-            "ogv",
-            "ogg",
-            "mov",
-            "qt",
-            "3gp",
-            "3g2",
-            "avi",
-            "wmv",
-            "flv",
-            "mpg",
-            "mpeg",
-            "mpe",
-            "mkv"
-          ],
-          "mimeType": "video/*"
+          "ext": "mp4",
+          "mimeType": "video/mp4"
+        },
+        {
+          "ext": "m4v",
+          "mimeType": "video/x-m4v"
+        },
+        {
+          "ext": "webm",
+          "mimeType": "video/webm"
+        },
+        {
+          "ext": "ogv",
+          "mimeType": "video/ogg"
+        },
+        {
+          "ext": "ogg",
+          "mimeType": "video/ogg"
+        },
+        {
+          "ext": "mov",
+          "mimeType": "video/quicktime"
+        },
+        {
+          "ext": "qt",
+          "mimeType": "video/quicktime"
+        },
+        {
+          "ext": "3gp",
+          "mimeType": "video/3gpp"
+        },
+        {
+          "ext": "3g2",
+          "mimeType": "video/3gpp2"
+        },
+        {
+          "ext": "avi",
+          "mimeType": "video/x-msvideo"
+        },
+        {
+          "ext": "wmv",
+          "mimeType": "video/x-ms-wmv"
+        },
+        {
+          "ext": "flv",
+          "mimeType": "video/x-flv"
+        },
+        {
+          "ext": "mpg",
+          "mimeType": "video/mpeg"
+        },
+        {
+          "ext": "mpeg",
+          "mimeType": "video/mpeg"
+        },
+        {
+          "ext": "mpe",
+          "mimeType": "video/mpeg"
+        },
+        {
+          "ext": "mkv",
+          "mimeType": "video/x-matroska"
         }
       ]
     },
