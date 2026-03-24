@@ -6,6 +6,7 @@ import DefaultFileAssociationService from "./Services/DefaultFileAssociationServ
 import SupportedFileTypeData from "./Data/SupportedFileTypeData.js";
 
 let isNotDeeplinkOpened = true;
+let isNotArgVidOpened = true;
 let mainWindow;
 
 const getVideoFile = (argv) => {
@@ -38,8 +39,11 @@ const createMainWindow = () => {
     mainWindow.webContents.setZoomFactor(1 / screen.getPrimaryDisplay().scaleFactor);
     mainWindow.show();
 
-    const file = getVideoFile(process.argv);
-    if (file) FolderSelectionService.openFile(file, mainWindow);
+    if (isNotArgVidOpened) {
+      isNotArgVidOpened = false
+      const file = getVideoFile(process.argv);
+      if (file) FolderSelectionService.openFile(file, mainWindow);
+    }
 
     if (isNotDeeplinkOpened) {
       isNotDeeplinkOpened = false;

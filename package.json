@@ -30,7 +30,7 @@
     },
     "win": {
       "target": "nsis",
-      "icon": "src/Assets/favicon.png",
+      "icon": "src/Assets/favicon.ico",
       "fileAssociations": [
         {
           "ext": [
@@ -54,6 +54,68 @@
           "name": "Video File",
           "description": "Video File",
           "icon": "src/Assets/favicon.png"
+        }
+      ]
+    },
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "icon": "src/Assets/favicon.icns",
+      "category": "public.app-category.video",
+      "fileAssociations": [
+        {
+          "ext": [
+            "mp4",
+            "m4v",
+            "webm",
+            "ogv",
+            "ogg",
+            "mov",
+            "qt",
+            "3gp",
+            "3g2",
+            "avi",
+            "wmv",
+            "flv",
+            "mpg",
+            "mpeg",
+            "mpe",
+            "mkv"
+          ],
+          "role": "Viewer"
+        }
+      ]
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "icon": "src/Assets/",
+      "category": "AudioVideo",
+      "fileAssociations": [
+        {
+          "ext": [
+            "mp4",
+            "m4v",
+            "webm",
+            "ogv",
+            "ogg",
+            "mov",
+            "qt",
+            "3gp",
+            "3g2",
+            "avi",
+            "wmv",
+            "flv",
+            "mpg",
+            "mpeg",
+            "mpe",
+            "mkv"
+          ],
+          "mimeType": "video/*"
         }
       ]
     },
