@@ -1,5 +1,9 @@
 {
   "name": "noob-player",
+  "author": {
+    "name": "Fardeen Khan",
+    "email": "me@fardeenkhan.dev"
+  },
   "version": "0.9.2",
   "description": "NooB Video Player - Fast lightweight media player",
   "main": "src/index.js",
@@ -11,7 +15,6 @@
     "build:mac": "electron-builder --mac"
   },
   "keywords": [],
-  "author": "",
   "license": "ISC",
   "type": "module",
   "dependencies": {
@@ -91,6 +94,7 @@
       ]
     },
     "linux": {
+      "maintainer": "Fardeen Khan me@fardeenkhan.dev",
       "target": [
         "AppImage",
         "deb"

@@ -26,14 +26,17 @@ const createMainWindow = () => {
     webPreferences: {
       contextIsolation: true,
       nodeIntegration: false,
-      devTools: false,
+      // devTools: false,
       preload: path.join(app.getAppPath(), 'src', 'preload.js'),
+      webSecurity: false
     }
   });
 
   mainWindow.maximize();
   const uiPath = path.join(app.getAppPath(), 'src', 'UI', 'index.html')
-  mainWindow.loadFile(uiPath);
+  // mainWindow.loadFile(uiPath);
+
+  mainWindow.loadURL('http://10.33.110.78:5500/src/UI/index.html');
 
   mainWindow.webContents.on('did-finish-load', () => {
     mainWindow.webContents.setZoomFactor(1 / screen.getPrimaryDisplay().scaleFactor);

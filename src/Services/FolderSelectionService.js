@@ -15,8 +15,8 @@ const openFile = async (filePath, win) => {
 
 const handleFolderSelection = (folderPath, win, fileName = null) => {
   RuntimeDataManagerService.add('selected-folder', folderPath);
-  win.webContents.send('folderSelected', { folderPath, fileName });
   fs.readdir(folderPath).then(async (files) => {
+    if (files.length > 0) win.webContents.send('folderSelected', { folderPath, fileName });
     files = files.sort();
     for (const file of files) {
       const fullPath = path.join(folderPath, file);

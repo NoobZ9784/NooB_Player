@@ -204,6 +204,12 @@ const searchBarInpChange = (inp) => {
   } else doNoShowInSearchInfoList(true);
 }
 
+const changeSpeed = (speed) => {
+  vidplayer.defaultPlaybackRate = speed;
+  vidplayer.load();
+  vidplayer.play();
+}
+
 
 // INIT
 (() => {
@@ -218,6 +224,16 @@ const searchBarInpChange = (inp) => {
         else if (event.key === 'p' && !isSearchInputInFocus) vidplayer.requestPictureInPicture();
         else if (event.key === 'f' && !isSearchInputInFocus && !document.fullscreenElement) vidplayer.requestFullscreen();
         else if (event.key === 'f' && !isSearchInputInFocus && document.fullscreenElement) document.exitFullscreen();
+        else if (event.key === '1' && !isSearchInputInFocus) changeSpeed('1');
+        else if (event.key === '2' && !isSearchInputInFocus) changeSpeed('2');
+        else if (event.key === '3' && !isSearchInputInFocus) changeSpeed('3');
+        else if (event.key === '4' && !isSearchInputInFocus) changeSpeed('4');
+        else if (event.key === '5' && !isSearchInputInFocus) changeSpeed('5');
+        else if (event.key === '6' && !isSearchInputInFocus) changeSpeed('6');
+        else if (event.key === '7' && !isSearchInputInFocus) changeSpeed('7');
+        else if (event.key === '8' && !isSearchInputInFocus) changeSpeed('8');
+        else if (event.key === '9' && !isSearchInputInFocus) changeSpeed('9');
+
       }
     } catch (_) { }
   });

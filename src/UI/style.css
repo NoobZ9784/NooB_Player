@@ -357,6 +357,11 @@ body {
     width: 1px;
     background-color: #ffffff46;
     cursor: col-resize;
+    /* transition: all 0.3s ease;
+
+    &&:hover {
+      width: 5px;
+    } */
   }
 
   .videoPlayer {
@@ -472,6 +477,40 @@ body {
             svg {
               height: 25px;
             }
+          }
+
+          select {
+            padding: 5px 12px;
+            background-color: transparent;
+            color: white;
+            outline: none;
+            border-radius: 8px;
+            cursor: pointer;
+            accent-color: #00f7ff;
+
+            &&::picker(select) {
+              background-color: #00000051;
+              border-radius: 8px;
+              padding: 10px;
+              backdrop-filter: blur(10px);
+              border: none;
+              width: 100px;
+
+            }
+
+            option {
+              color: white;
+
+              &&::checkmark {
+                content: "☑️";
+                color: green;
+              }
+            }
+          }
+
+          select,
+          ::picker(select) {
+            appearance: base-select;
           }
         }
       }
