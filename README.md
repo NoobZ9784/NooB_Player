@@ -147,7 +147,6 @@ Please make sure your code follows the existing style and includes a clear descr
 
 ## 🐛 Known Issues / Roadmap
 
-- [ ] Add volume slider UI
 - [ ] Support drag-and-drop file opening
 - [ ] Remember last playback position
 - [ ] Theme customization
@@ -165,9 +164,10 @@ This project is licensed under the **MIT License** — see the [LICENSE](LICENSE
 
 ## 🙋‍♂️ Author
 
-**Your Name**
+**Fardeen Khan**
 - GitHub: [@NoobZ9784](https://github.com/NoobZ9784)
 - Twitter: [@fardeen-khan-36b3bb210](https://www.linkedin.com/in/fardeen-khan-36b3bb210/)
+- Email: me@fardeenkhan.dev
 
 ---
 
