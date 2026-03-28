@@ -57,7 +57,7 @@ Make sure you have the following installed:
 
 1. **Clone the repository**
    ```bash
-   git clone [https://github.com/your-username/noob-player.git](https://github.com/NoobZ9784/NooB_Player.git)
+   git clone https://github.com/NoobZ9784/NooB_Player.git
    cd noob-player
    ```
 
