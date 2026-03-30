@@ -14,6 +14,7 @@ const searchBar = document.getElementById('searchBar');
 const searchCancelBtn = document.getElementById('searchCancelBtn');
 const infoList = document.getElementById('infoList');
 const searchBarInp = document.getElementById('searchBarInp');
+const audioTracks = document.getElementById('audioTracks');
 
 const fileslist = [];
 const fileNameAndIndexMappings = {};
@@ -54,6 +55,12 @@ const getRecentFolderList = () => {
   } catch (_) { }
   return list;
 }
+
+const deleteRecentFolderList = () => {
+  localStorage.removeItem('recent-folder');
+  recents.style.display = 'none';
+}
+
 
 window.vidPlayer.addFileIntoList((fileInfo) => {
   fileslist.push(fileInfo);
@@ -205,10 +212,30 @@ const searchBarInpChange = (inp) => {
 }
 
 const changeSpeed = (speed) => {
+  const currentTime = vidplayer.currentTime;
   vidplayer.defaultPlaybackRate = speed;
   vidplayer.load();
+  vidplayer.currentTime = currentTime;
   vidplayer.play();
 }
+
+const updateAudioTracksList = () => {
+  if (vidplayer.audioTracks && vidplayer.audioTracks.length > 0) {
+    audioTracks.style.display = 'block';
+    audioTracks.innerHTML = '';
+    for (let i in vidplayer.audioTracks) {
+      const op = document.createElement('option');
+      op.innerText = vidplayer.audioTracks[parseInt(i)].language + ' - ' + vidplayer.audioTracks[parseInt(i)].label;
+      op.selected = vidplayer.audioTracks[parseInt(i)].enabled;
+      op.value = i;
+      audioTracks.appendChild(op);
+    }
+  } else {
+    audioTracks.style.display = 'none';
+  }
+}
+
+const changeAudioTrack = (i) => { vidplayer.audioTracks[parseInt(i)].enabled = true; }
 
 
 // INIT

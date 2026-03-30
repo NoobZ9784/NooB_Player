@@ -4,6 +4,7 @@ import FolderSelectionService from "./Services/FolderSelectionService.js";
 import FrameActionService from "./Services/FrameActionService.js";
 import DefaultFileAssociationService from "./Services/DefaultFileAssociationService.js";
 import SupportedFileTypeData from "./Data/SupportedFileTypeData.js";
+import UtilityService from "./Services/UtilityService.js";
 
 let isNotDeeplinkOpened = true;
 let isNotArgVidOpened = true;
@@ -26,17 +27,19 @@ const createMainWindow = () => {
     webPreferences: {
       contextIsolation: true,
       nodeIntegration: false,
-      // devTools: false,
+      devTools: UtilityService.isDev(),
       preload: path.join(app.getAppPath(), 'src', 'preload.js'),
-      webSecurity: false
+      webSecurity: !UtilityService.isDev(),
+      enableBlinkFeatures: 'AudioVideoTracks'
     }
   });
 
   mainWindow.maximize();
-  const uiPath = path.join(app.getAppPath(), 'src', 'UI', 'index.html')
-  // mainWindow.loadFile(uiPath);
-
-  mainWindow.loadURL('http://10.33.110.78:5500/src/UI/index.html');
+  if (UtilityService.isDev()) mainWindow.loadURL('http://10.33.110.78:5500/src/UI/index.html');
+  else {
+    const uiPath = path.join(app.getAppPath(), 'src', 'UI', 'index.html')
+    mainWindow.loadFile(uiPath);
+  }
 
   mainWindow.webContents.on('did-finish-load', () => {
     mainWindow.webContents.setZoomFactor(1 / screen.getPrimaryDisplay().scaleFactor);
@@ -67,7 +70,6 @@ const createMainWindow = () => {
 
 app.whenReady().then(async () => {
   createMainWindow();
-
   FolderSelectionService.init(mainWindow);
   FrameActionService.init(mainWindow);
   DefaultFileAssociationService.init();

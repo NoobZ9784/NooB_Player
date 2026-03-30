@@ -72,7 +72,16 @@
     <button class="select-file-folder-btn" onclick="window.vidPlayer.openFolder()">Open Folder<div class="line"></div>
     </button>
     <div class="recents" id="recents">
-      <h3>Recents</h3>
+      <h3><span>Recents</span><button onclick="deleteRecentFolderList()" title="Clear recents"><svg
+            xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="lucide lucide-trash2-icon lucide-trash-2">
+            <path d="M10 11v6" />
+            <path d="M14 11v6" />
+            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" />
+            <path d="M3 6h18" />
+            <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+          </svg></button></h3>
       <div class="folders" id="recent-folders"></div>
     </div>
   </div>
@@ -86,7 +95,7 @@
       <div class="video row" onmouseover="mouseOverVidPlayer()" onmouseleave="mouseLeaveVidPlayer()">
         <video id="vidplayer" class="vidplayer row" ontimeupdate="videoTimeUpdate()" onplay="onVideoPlay()"
           onpause="onVideoPause()" autoplay onclick="playPauseVideo()" ondblclick="vidplayer.requestFullscreen()"
-          onvolumechange="vidvolume.value = this.volume*100">
+          onvolumechange="vidvolume.value = this.volume*100" onloadedmetadata="updateAudioTracksList()">
           Unsupported file type
         </video>
         <button id="playPauseBtn" class="playPauseBtn" onclick="playPauseVideo(this)"><svg
@@ -98,7 +107,7 @@
         <div class="controlls row" id="controlls">
           <div class="seek row">
             <span id="currVidTime"></span>
-            <input class="timeline" type="range" id="timeline" value="0" oninput="inputChange(this)">
+            <input class="timeline" type="range" id="timeline" value="0" oninput="inputChange(this)" value="0">
             <span id="totalVidTime"></span>
           </div>
           <div class="buttonControlls row">
@@ -145,6 +154,7 @@
                 <option value="3.0">3.0</option>
                 <option value="4.0">4.0</option>
               </select>
+              <select name="audioTracks" id="audioTracks" onchange="changeAudioTrack(this.value)"></select>
               <button title="Rotate left (Shift + r)" onclick="videoRotate('LEFT')"><svg
                   xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"

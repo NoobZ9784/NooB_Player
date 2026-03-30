@@ -260,7 +260,22 @@ body {
     display: none;
     max-width: 70%;
 
+    button {
+      background-color: transparent;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      color: white;
+
+      svg {
+        height: 20px;
+      }
+    }
+
     h3 {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       color: white;
       font-weight: normal;
       letter-spacing: 1px;
@@ -480,13 +495,19 @@ body {
           }
 
           select {
-            padding: 5px 12px;
+            padding: 4px 12px;
             background-color: transparent;
             color: white;
             outline: none;
             border-radius: 8px;
             cursor: pointer;
             accent-color: #00f7ff;
+            max-width: 150px;
+            height: 35px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            overflow-wrap: break-word;
+
 
             &&::picker(select) {
               background-color: #00000051;
@@ -494,8 +515,12 @@ body {
               padding: 10px;
               backdrop-filter: blur(10px);
               border: none;
-              width: 100px;
+              min-width: 100px;
 
+            }
+
+            &&::picker-icon {
+              display: none;
             }
 
             option {
