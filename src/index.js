@@ -22,7 +22,7 @@ const createMainWindow = () => {
     width: 1280,
     height: 720,
     show: false,
-    frame: false,
+    frame: UtilityService.platform() === 'darwin',
     icon: path.join(app.getAppPath(), 'src', 'Assets', 'favicon.png'),
     webPreferences: {
       contextIsolation: true,
