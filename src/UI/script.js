@@ -1,3 +1,4 @@
+const navbar = document.getElementById('navbar');
 const folderNotSelected = document.getElementById('folderNotSelected');
 const mainPage = document.getElementById('mainPage');
 const filesPanel = document.getElementById('filesPanel');
@@ -292,4 +293,6 @@ const changeAudioTrack = (i) => { vidplayer.audioTracks[parseInt(i)].enabled = t
     artist: "me@fardeenkhan.dev",
     album: "Local Files"
   });
+
+  if (window.vidPlayer.platform === 'darwin') navbar.style.display = 'none';
 })()

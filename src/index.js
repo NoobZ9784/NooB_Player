@@ -1,4 +1,4 @@
-import { app, BrowserWindow, dialog, screen } from "electron";
+import { app, BrowserWindow, screen, Menu } from "electron";
 import path from 'path';
 import FolderSelectionService from "./Services/FolderSelectionService.js";
 import FrameActionService from "./Services/FrameActionService.js";
@@ -69,8 +69,10 @@ const createMainWindow = () => {
 }
 
 app.whenReady().then(async () => {
+  Menu.setApplicationMenu(null);
   createMainWindow();
   FolderSelectionService.init(mainWindow);
   FrameActionService.init(mainWindow);
   DefaultFileAssociationService.init();
+
 });

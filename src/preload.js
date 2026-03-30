@@ -1,6 +1,8 @@
 const { contextBridge, ipcRenderer } = require('electron');
 
 contextBridge.exposeInMainWorld('vidPlayer', {
+  platform: process.platform,
+
   appMaximize: () => ipcRenderer.invoke('APP-MAXIMIZE'),
   appMinimize: () => ipcRenderer.invoke('APP-MINIMIZE'),
   appClose: () => ipcRenderer.invoke('APP-CLOSE'),
