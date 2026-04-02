@@ -502,7 +502,6 @@ body {
             border-radius: 8px;
             cursor: pointer;
             accent-color: #00f7ff;
-            max-width: 150px;
             height: 35px;
             text-overflow: ellipsis;
             overflow: hidden;
